@@ -7,6 +7,11 @@
   <version>1.0-SNAPSHOT</version>
   <name>GWT-wAsync Parent</name>
   <properties>
+    <!-- GWT needs at least java 1.6 -->
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.7.0</gwtVersion>
     <wasyncVersion>1.4.0</wasyncVersion>
