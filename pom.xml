@@ -65,6 +65,12 @@
         </exclusions>
       </dependency>
       <dependency>
+        <groupId>org.atmosphere.client</groupId>
+        <artifactId>javascript</artifactId>
+        <version>${atmosphereClientVersion}</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
         <groupId>org.atmosphere.extensions</groupId>
         <artifactId>atmosphere-gwt20-jersey</artifactId>
         <version>${atmosphereExtensionsVersion}</version>

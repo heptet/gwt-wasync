@@ -11,6 +11,7 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
+  <inherits name="org.atmosphere.gwt20.AtmosphereGwt20"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='us.heptet.samples.gwtwasync.client.Gwtwasync' />
