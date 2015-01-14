@@ -16,7 +16,7 @@
     <gwtVersion>2.7.0</gwtVersion>
     <wasyncVersion>1.4.0</wasyncVersion>
     <jacksonVersion>2.5.0</jacksonVersion>
-    <atmosphereExtensionsVersion>2.2.1-GWT27-SNAPSHOT</atmosphereExtensionsVersion>
+    <atmosphereExtensionsVersion>2.2.1-GWT27</atmosphereExtensionsVersion>
     <atmosphereVersion>2.2.3</atmosphereVersion>
     <atmosphereClientVersion>2.2.5</atmosphereClientVersion>
     <slf4jVersion>1.7.7</slf4jVersion>
