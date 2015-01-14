@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="Gwtwasync">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='us.heptet.samples.gwtwasync.Gwtwasync' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/Gwtwasync/greet" class="us.heptet.samples.gwtwasync.server.GreetingServiceImpl" />
+
+</module>
