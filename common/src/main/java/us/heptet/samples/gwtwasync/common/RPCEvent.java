@@ -8,6 +8,9 @@ public class RPCEvent implements Serializable
     private String textMessage;
     public RPCEvent() {
     }
+    public RPCEvent(String textMessage) {
+	setTextMessage(textMessage);
+    }
     public String getTextMessage()
     {
 	return textMessage;

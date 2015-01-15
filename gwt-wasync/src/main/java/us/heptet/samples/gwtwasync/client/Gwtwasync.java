@@ -1,6 +1,11 @@
 package us.heptet.samples.gwtwasync.client;
 
+import org.atmosphere.gwt20.client.*;
 import us.heptet.samples.gwtwasync.shared.FieldVerifier;
+import us.heptet.samples.gwtwasync.common.RPCEvent;
+
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -36,10 +41,46 @@ public class Gwtwasync implements EntryPoint {
 
   private final Messages messages = GWT.create(Messages.class);
 
+  /* Atmosphere RPC stuffs */
+  private final RPCSerializer rpc_serializer = GWT.create(RPCSerializer.class);
+  private final AtmosphereRequestConfig rpcRequestConfig = AtmosphereRequestConfig.create(rpc_serializer);
+  private Atmosphere atmosphere;
+  private AtmosphereRequest rpcRequest;
+
+    Logger logger = Logger.getLogger("myLogger");
+
+    class Handler implements AtmosphereMessageHandler/*, AtmosphereOpenHandler, AtmosphereCloseHandler*/
+    {
+        @Override
+        public void onMessage(AtmosphereResponse response) {
+            logger.info("in onMessage");
+	}
+    }
+
   /**
    * This is the entry point method.
    */
   public void onModuleLoad() {
+
+    String atmosUrl = GWT.getModuleBaseURL() + "atmosphere";
+    logger.info(atmosUrl);
+    
+    Handler handler2 = new Handler();
+
+    rpcRequestConfig.setUrl(atmosUrl);
+    rpcRequestConfig.setTransport(AtmosphereRequestConfig.Transport.STREAMING);
+    rpcRequestConfig.setFallbackTransport(AtmosphereRequestConfig.Transport.LONG_POLLING);
+    //    rpcRequestConfig.setOpenHandler(handler);
+    //    rpcRequestConfig.setCloseHandler(handler);
+    rpcRequestConfig.setMessageHandler(handler2);
+    atmosphere = Atmosphere.create();
+    logger.info("atmosphere = " + (atmosphere == null ? null : atmosphere.toString()));
+    if(atmosphere != null)
+	{
+	    rpcRequest = atmosphere.subscribe(rpcRequestConfig);
+	    
+	}
+
     final Button sendButton = new Button( messages.sendButton() );
     final TextBox nameField = new TextBox();
     nameField.setText( messages.nameField() );
@@ -92,7 +133,7 @@ public class Gwtwasync implements EntryPoint {
        * Fired when the user clicks on the sendButton.
        */
       public void onClick(ClickEvent event) {
-        sendNameToServer();
+        sendNameToAtmosphere();
       }
 
       /**
@@ -100,8 +141,36 @@ public class Gwtwasync implements EntryPoint {
        */
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-          sendNameToServer();
+          sendNameToAtmosphere();
         }
+      }
+
+      /**
+       * Send the name from the nameField to the server and wait for a response.
+       */
+      private void sendNameToAtmosphere() {
+        // First, we validate the input.
+	  logger.info("in sendNameToAtmosphere (" + (rpcRequest == null ? "null" : rpcRequest.toString()) + ")");
+        errorLabel.setText("");
+        String textToServer = nameField.getText();
+        if (!FieldVerifier.isValidName(textToServer)) {
+          errorLabel.setText("Please enter at least four characters");
+          return;
+        }
+
+        // Then, we send the input to the server.
+        sendButton.setEnabled(false);
+        textToServerLabel.setText(textToServer);
+        serverResponseLabel.setText("");
+
+	try
+	    {
+		rpcRequest.push(new RPCEvent(textToServer));
+	    }
+	catch(Exception x)
+	    {
+		x.printStackTrace();
+	    }
       }
 
       /**

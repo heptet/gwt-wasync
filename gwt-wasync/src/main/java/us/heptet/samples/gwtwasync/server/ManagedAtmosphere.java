@@ -35,7 +35,7 @@ import us.heptet.samples.gwtwasync.common.RPCEvent;
 		    SuspendTrackerInterceptor.class,
 		    MyInterceptor.class,
 		    //AtmosphereMessageInterceptor.class,
-		    //MyBroadcastOnPostAtmosphereInterceptor.class,
+		    //		    MyBroadcastOnPostAtmosphereInterceptor.class,
 		    IdleResourceInterceptor.class
 		})
 
@@ -93,7 +93,12 @@ public class ManagedAtmosphere {
         {
             RPCEvent rpcEvent = (RPCEvent)messageObject;
 
+
 	    /* do stuff here/dispatch */
+	    Broadcaster myBroadcaster = r.getAtmosphereConfig().getBroadcasterFactory().lookup("MyBroadcaster", true);
+	    logger.debug("myBroadcaster = " + myBroadcaster);
+	    myBroadcaster.broadcast(messageObject);
+
         }
     }
 

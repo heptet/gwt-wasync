@@ -16,7 +16,7 @@ public class Client
 	    {
 		@Override
 		public void handle(final RPCEvent rpcEvent) {
-		    logger.info("received {}", rpcEvent);
+		    logger.info("received {}", rpcEvent.getTextMessage());
 		}
 	    }
 	    );

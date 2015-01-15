@@ -20,10 +20,12 @@
         <description>AtmosphereServlet</description>
         <servlet-name>AtmosphereServlet</servlet-name>
         <servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+<!--
         <init-param>
             <param-name>org.atmosphere.cpr.AtmosphereInterceptor</param-name>
             <param-value>org.atmosphere.gwt20.server.GwtRpcInterceptor</param-value>
         </init-param>
+-->
         <init-param>
             <param-name>org.atmosphere.cache.UUIDBroadcasterCache.clientIdleTime</param-name>
             <param-value>300</param-value>
@@ -39,7 +41,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AtmosphereServlet</servlet-name>
-        <url-pattern>/atmosphere</url-pattern>
+        <url-pattern>/Gwtwasync/atmosphere</url-pattern>
     </servlet-mapping>
 
   <!-- Default page to serve -->
