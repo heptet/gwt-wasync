@@ -21,5 +21,16 @@ public class Client
 	    }
 	    );
 	asyncClient.connect();
+	for(;;)
+	    {
+		try
+		    {
+			asyncClient.fire(new RPCEvent("test message"));
+			Thread.sleep(5000);
+		    } catch(Exception ex)
+		    {
+			ex.printStackTrace();
+		    }
+	    }
     }
 }
